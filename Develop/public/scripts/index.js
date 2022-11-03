@@ -4,7 +4,7 @@ const fbBtn = document.getElementById('feedback-btn');
 
 fbBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  window.location.href = '/feedback';
+  window.location.href = '/feedback'; //this new
 });
 
 const createCard = (tip) => {
@@ -124,11 +124,25 @@ const showErrors = (errorObj) => {
 // Helper function to send a POST request to the diagnostics route (/api/diagnostics)
 const submitDiagnostics = (submissionObj) => {
   // TODO: your code here
-  console.info(
-    '⚠️ Create the logic for the fetch POST request in scripts/index.js'
-  );
-  alert('Add your logic to scripts/index.js');
-};
+  fetch("./api/diagnostics", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(submissionObj),
+  })
+  .then((response) => response.json())
+  .then(() => showErrors(submissionObj.errors))
+  .catch((error) => {
+    console.error("Error:", error);
+  })
+  
+  };
+//   console.info(
+//     '⚠️ Create the logic for the fetch POST request in scripts/index.js'
+//   );
+//   alert('Add your logic to scripts/index.js');
+// };
 
 // Function to handle when a user submits the feedback form
 const handleFormSubmit = (e) => {
